@@ -18,7 +18,10 @@ export const RealtimeSubtitle = () => {
             const scroll = () => {
                 realtimeSubtitle.scrollTop = realtimeSubtitle.scrollHeight;
             }
-            roomId && startListen(roomId, scroll);
+            if (roomId) {
+                const stream = startListen(roomId, scroll);
+                return () => stream.cancel();
+            }
         }
     }, [roomId, startListen]);
 
