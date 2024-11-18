@@ -1,6 +1,9 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import {ChatRespond} from "@A/core/grpc/chat/chat_pb";
 import {Language} from "@A/core/contants/language";
+
+dayjs.extend(utc)
 
 export class Subtitle {
     private readonly timestamp: number;
@@ -23,7 +26,7 @@ export class Subtitle {
     }
 
     getTime(): string {
-        return dayjs.unix(this.timestamp).format("HH:mm:ss");
+        return dayjs.unix(this.timestamp).utc().format('HH:mm:ss');
     }
 
     getSpeaker(): string {
