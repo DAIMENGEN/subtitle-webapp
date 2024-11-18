@@ -23,7 +23,7 @@ export class Subtitle {
     }
 
     getTime(): string {
-        return dayjs(this.timestamp).format("HH:mm:ss");
+        return dayjs.unix(this.timestamp).format("HH:mm:ss");
     }
 
     getSpeaker(): string {
