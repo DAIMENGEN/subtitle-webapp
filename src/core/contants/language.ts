@@ -1,7 +1,7 @@
 export class Language {
-    static readonly ENGLISH = "en";
-    static readonly CHINESE = "zh";
-    static readonly JAPANESE = "ja";
+    static readonly ENGLISH = "eng";
+    static readonly CHINESE = "cmn";
+    static readonly JAPANESE = "jpn";
     static readonly KOREAN = "ko";
     static readonly THAI = "th";
     static readonly VIETNAMESE = "vi";
