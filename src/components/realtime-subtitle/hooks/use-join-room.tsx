@@ -2,7 +2,6 @@ import {useCallback, useRef} from "react";
 import {Input, InputRef, Modal, Toast} from "antd-mobile";
 import {DisplayBlock} from "@A/components/display-block/display-block";
 import {useWebappDispatch, useWebappSelector} from "@A/core/store/webapp-hook";
-import {CreateRequest} from "@A/core/grpc/chat/chat_pb";
 import {useChatServiceClient} from "@A/core/hooks/use-chat-service-client";
 import {setRoomId} from "@A/core/store/features/session-slice";
 
@@ -32,21 +31,8 @@ export const useJoinRoom = () => {
                         onConfirm: () => joinRoom(),
                     }).then();
                 } else {
-                    const request = new CreateRequest().setMeetingRoom(roomId).setPassword("");
-                    client.createChat(request, {}).then(response => {
-                        const result = response.getResult();
-                        if (result) {
-                            Toast.show({content: "Join the room successfully"});
-                            webappDispatch(setRoomId(roomId));
-                        } else {
-                            Modal.alert({
-                                title: "Unable to join the room.",
-                                content: `Error: ${response.getMessage()}`,
-                                confirmText: "OK",
-                                onConfirm: () => joinRoom(),
-                            }).then();
-                        }
-                    });
+                    Toast.show({content: "Join the room successfully"});
+                    webappDispatch(setRoomId(roomId));
                 }
             }
         }).then();
