@@ -1,7 +1,7 @@
 import "./subtitle-setting.scss";
 import React, {useState} from "react";
 import {Button, Card, CheckList, Grid, Image, Modal, Popup, Slider, Space} from "antd-mobile";
-import bubble_webp from "@A/assets/webp/bubble.jpeg";
+import bubble_webp from "@A/assets/jpeg/bubble.jpeg";
 import {FontSizeIcon01} from "@A/assets/svg/font-size-icon-01";
 import {ThemeIcon01} from "@A/assets/svg/theme-icon-01";
 import {LayoutIcon01} from "@A/assets/svg/layout-icon-01";
