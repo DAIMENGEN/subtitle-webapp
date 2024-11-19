@@ -27,7 +27,9 @@ export const RealtimeSubtitle = () => {
     useEffect(() => {
         const realtimeSubtitle = realtimeSubtitleRef.current;
         if (realtimeSubtitle) {
-            realtimeSubtitle.scrollTop = realtimeSubtitle.scrollHeight;
+            requestAnimationFrame(() => {
+                realtimeSubtitle.scrollTop = realtimeSubtitle.scrollHeight;
+            });
         }
     }, [subtitles]);
 
