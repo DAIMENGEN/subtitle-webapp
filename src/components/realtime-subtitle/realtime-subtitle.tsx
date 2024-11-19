@@ -7,10 +7,15 @@ import {useChatListen} from "@A/components/realtime-subtitle/hooks/use-chat-list
 import {SubtitleList} from "@A/components/realtime-subtitle/segments/subtitle-list/subtitle-list";
 
 export const RealtimeSubtitle = () => {
-    const roomId = useJoinRoom();
     const {subtitles, startListen} = useChatListen();
+    const {roomId, joinRoom, closeJoinRoom} = useJoinRoom();
     const realtimeSubtitleRef = useRef<HTMLDivElement>(null);
     const backgroundColor = useWebappSelector(state => state.static.backgroundColor);
+
+    useEffect(() => {
+        !roomId && joinRoom();
+        return () => closeJoinRoom();
+    }, [roomId, joinRoom, closeJoinRoom]);
 
     useEffect(() => {
         const realtimeSubtitle = realtimeSubtitleRef.current;
