@@ -6,42 +6,22 @@ import {Language} from "@A/core/contants/language";
 dayjs.extend(utc)
 
 export class Subtitle {
-    private readonly timestamp: number;
-    private readonly speaker: string;
-    private readonly chinese: string;
-    private readonly english: string;
-    private readonly japanese: string;
+    public readonly time: string;
+    public readonly speaker: string;
+    public readonly chinese: string;
+    public readonly english: string;
+    public readonly japanese: string;
 
     constructor(response: ChatRespond) {
-        this.timestamp = response.getStart();
         this.speaker = response.getSpeaker();
         const languageList = response.getTargetLanguageList();
         const subtitleList = response.getTranslatedTextList();
         const chineseIndex = languageList.indexOf(Language.CHINESE);
         const englishIndex = languageList.indexOf(Language.ENGLISH);
         const japaneseIndex = languageList.indexOf(Language.JAPANESE);
+        this.time = dayjs.unix(response.getStart()).utc().format("HH:mm:ss");
         this.chinese = chineseIndex !== -1 ? subtitleList[chineseIndex] : "";
         this.english = englishIndex !== -1 ? subtitleList[englishIndex] : "";
         this.japanese = japaneseIndex !== -1 ? subtitleList[japaneseIndex] : "";
-    }
-
-    getTime(): string {
-        return dayjs.unix(this.timestamp).utc().format('HH:mm:ss');
-    }
-
-    getSpeaker(): string {
-        return this.speaker;
-    }
-
-    getChinese(): string {
-        return this.chinese;
-    }
-
-    getEnglish(): string {
-        return this.english;
-    }
-
-    getJapanese(): string {
-        return this.japanese;
     }
 }

@@ -31,10 +31,10 @@ export const SubtitleList: React.FC<{
                             displayChinese && (
                                 <div>
                                     {displayTime &&
-                                        <span style={{color: timeColor}}>{subtitle.getTime()}&nbsp;&nbsp;</span>}
+                                        <span style={{color: timeColor}}>{subtitle.time}&nbsp;&nbsp;</span>}
                                     {displaySpeaker &&
-                                        <span style={{color: speakerColor}}>{subtitle.getSpeaker()}&nbsp;&nbsp;</span>}
-                                    {displaySubtitle && <span style={{color: fontColor}}>{subtitle.getChinese()}</span>}
+                                        <span style={{color: speakerColor}}>{subtitle.speaker}&nbsp;&nbsp;</span>}
+                                    {displaySubtitle && <span style={{color: fontColor}}>{subtitle.chinese}</span>}
                                 </div>
                             )
                         }
@@ -43,10 +43,10 @@ export const SubtitleList: React.FC<{
                             displayEnglish && (
                                 <div>
                                     {displayTime &&
-                                        <span style={{color: timeColor}}>{subtitle.getTime()}&nbsp;&nbsp;</span>}
+                                        <span style={{color: timeColor}}>{subtitle.time}&nbsp;&nbsp;</span>}
                                     {displaySpeaker &&
-                                        <span style={{color: speakerColor}}>{subtitle.getSpeaker()}&nbsp;&nbsp;</span>}
-                                    {displaySubtitle && <span style={{color: fontColor}}>{subtitle.getEnglish()}</span>}
+                                        <span style={{color: speakerColor}}>{subtitle.speaker}&nbsp;&nbsp;</span>}
+                                    {displaySubtitle && <span style={{color: fontColor}}>{subtitle.english}</span>}
                                 </div>
                             )
                         }
@@ -55,10 +55,10 @@ export const SubtitleList: React.FC<{
                             displayJapanese && (
                                 <div>
                                     {displayTime &&
-                                        <span style={{color: timeColor}}>{subtitle.getTime()}&nbsp;&nbsp;</span>}
+                                        <span style={{color: timeColor}}>{subtitle.time}&nbsp;&nbsp;</span>}
                                     {displaySpeaker &&
-                                        <span style={{color: speakerColor}}>{subtitle.getSpeaker()}&nbsp;&nbsp;</span>}
-                                    {displaySubtitle && <span style={{color: fontColor}}>{subtitle.getJapanese()}</span>}
+                                        <span style={{color: speakerColor}}>{subtitle.speaker}&nbsp;&nbsp;</span>}
+                                    {displaySubtitle && <span style={{color: fontColor}}>{subtitle.japanese}</span>}
                                 </div>
                             )
                         }

@@ -1,29 +1,31 @@
 import {useChatServiceClient} from "@A/core/hooks/use-chat-service-client";
 import {Subtitle} from "@A/core/models/subtitle";
-import {useCallback, useState} from "react";
+import {useCallback} from "react";
 import {ChatRespond, MeetingRoom} from "@A/core/grpc/chat/chat_pb";
+import {Toast} from "antd-mobile";
+import {useWebappDispatch, useWebappSelector} from "@A/core/store/webapp-hook";
+import {addSubtitle} from "@A/core/store/features/session-slice";
 
 export const useChatListen = () => {
-    // Ensure the array has at most 100 items
-    const maxSubtitles = 50;
     const client = useChatServiceClient();
-    const [subtitles, setSubtitles] = useState<Array<Subtitle>>([]);
+    const webappDispatch = useWebappDispatch();
+    const subtitles = useWebappSelector(state => state.session.subtitles);
 
     const startListen = useCallback((roomId: string) => {
         const request = new MeetingRoom().setMeetingRoom(roomId);
         const stream = client.chatListen(request, {});
         stream.on("data", (response: ChatRespond) => {
             const subtitle = new Subtitle(response);
-            setSubtitles(subtitles => {
-                const updated = [...subtitles, subtitle];
-                return updated.length > maxSubtitles ? updated.slice(-maxSubtitles) : updated;
-            });
+            webappDispatch(addSubtitle(subtitle));
         });
         stream.on("error", (error: any) => {
-            console.error(error);
+            Toast.show("Error: " + error.message);
+        });
+        stream.on("end", () => {
+            Toast.show("The connection has been disconnected. Please refresh and try reconnecting!");
         });
         return stream;
-    }, [client]);
+    }, [client, webappDispatch]);
     return {
         subtitles,
         startListen,
