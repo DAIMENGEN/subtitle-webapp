@@ -9,7 +9,7 @@ export const useChatListen = () => {
     const client = useChatServiceClient();
     const [subtitles, setSubtitles] = useState<Array<Subtitle>>([]);
 
-    const startListen = useCallback((roomId: string, callback?: () => void) => {
+    const startListen = useCallback((roomId: string) => {
         const request = new MeetingRoom().setMeetingRoom(roomId);
         const stream = client.chatListen(request, {});
         stream.on("data", (response: ChatRespond) => {
@@ -18,7 +18,6 @@ export const useChatListen = () => {
                 const updated = [...subtitles, subtitle];
                 return updated.length > maxSubtitles ? updated.slice(-maxSubtitles) : updated;
             });
-            callback?.();
         });
         stream.on("error", (error: any) => {
             console.error(error);

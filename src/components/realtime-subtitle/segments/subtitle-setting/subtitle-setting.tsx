@@ -49,7 +49,7 @@ export const SubtitleSetting = () => {
                 bodyStyle={{paddingTop: "0"}}
                 content={
                     <div className={"subtitle-setting-modal"}>
-                        <Card title={`Room: ${roomId}`}>
+                        <Card title={`Room: ${roomId}`} headerStyle={{display: "flex", justifyContent: "center"}}>
                             <Grid columns={2}>
                                 <Grid.Item span={2}>
                                     <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>

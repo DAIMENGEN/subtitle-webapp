@@ -18,17 +18,18 @@ export const RealtimeSubtitle = () => {
     }, [roomId, joinRoom, closeJoinRoom]);
 
     useEffect(() => {
-        const realtimeSubtitle = realtimeSubtitleRef.current;
-        if (realtimeSubtitle) {
-            const scroll = () => {
-                realtimeSubtitle.scrollTop = realtimeSubtitle.scrollHeight;
-            }
-            if (roomId) {
-                const stream = startListen(roomId, scroll);
-                return () => stream.cancel();
-            }
+        if (roomId) {
+            const stream = startListen(roomId);
+            return () => stream.cancel();
         }
     }, [roomId, startListen]);
+
+    useEffect(() => {
+        const realtimeSubtitle = realtimeSubtitleRef.current;
+        if (realtimeSubtitle) {
+            realtimeSubtitle.scrollTop = realtimeSubtitle.scrollHeight;
+        }
+    }, [subtitles]);
 
     return (
         <div ref={realtimeSubtitleRef}
