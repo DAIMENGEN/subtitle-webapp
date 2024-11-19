@@ -1,6 +1,6 @@
 import "./subtitle-setting.scss";
 import React, {useState} from "react";
-import {Button, CheckList, Grid, Image, Modal, Popup, Slider, Space} from "antd-mobile";
+import {Button, Card, CheckList, Grid, Image, Modal, Popup, Slider, Space} from "antd-mobile";
 import bubble_webp from "@A/assets/webp/bubble.webp";
 import {FontSizeIcon01} from "@A/assets/svg/font-size-icon-01";
 import {ThemeIcon01} from "@A/assets/svg/theme-icon-01";
@@ -19,6 +19,8 @@ import {DisplayBlock} from "@A/components/display-block/display-block";
 import {Language} from "@A/core/contants/language";
 import {ColorPicker} from "antd";
 import {ColorPaletteUtil} from "@A/utils/style/ColorPaletteUtil";
+import {SwitchRoomIcon01} from "@A/assets/svg/switch-room-icon-01";
+import {setRoomId} from "@A/core/store/features/session-slice";
 
 export const SubtitleSetting = () => {
     const container = document.getElementById("root");
@@ -28,6 +30,7 @@ export const SubtitleSetting = () => {
     const [isAdjustingSetting, setIsAdjustingSetting] = useState(false);
     const [isAdjustingFontSize, setIsAdjustingFontSize] = useState(false);
     const [isAdjustingLanguage, setIsAdjustingLanguage] = useState(false);
+    const roomId = useWebappSelector(state => state.session.roomId);
     const fontSize = useWebappSelector(state => state.static.fontSize);
     const fontColor = useWebappSelector(state => state.static.fontColor);
     const timeColor = useWebappSelector(state => state.static.timeColor);
@@ -43,42 +46,56 @@ export const SubtitleSetting = () => {
                 closeOnMaskClick={true}
                 getContainer={container}
                 stopPropagation={[]}
+                bodyStyle={{paddingTop: "0"}}
                 content={
                     <div className={"subtitle-setting-modal"}>
-                        <Grid columns={2}>
-                            <Grid.Item>
-                                <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>
-                                    <Button onClick={() => setIsAdjustingFontSize(true)} style={{border: "none"}}>
-                                        <FontSizeIcon01 width={50} height={50} color={"#91003c"}/>
-                                    </Button>
-                                    <span>FontSize</span>
-                                </Space>
-                            </Grid.Item>
-                            <Grid.Item>
-                                <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>
-                                    <Button onClick={() => setIsAdjustingTheme(true)} style={{border: "none"}}>
-                                        <ThemeIcon01 width={50} height={50} color={"#91003c"}/>
-                                    </Button>
-                                    Theme
-                                </Space>
-                            </Grid.Item>
-                            <Grid.Item>
-                                <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>
-                                    <Button onClick={() => setIsAdjustingDisplayLayout(true)} style={{border: "none"}}>
-                                        <LayoutIcon01 width={50} height={50} color={"#91003c"}/>
-                                    </Button>
-                                    Layout
-                                </Space>
-                            </Grid.Item>
-                            <Grid.Item>
-                                <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>
-                                    <Button onClick={() => setIsAdjustingLanguage(true)} style={{border: "none"}}>
-                                        <LanguageIcon01 width={50} height={50} color={"#91003c"}/>
-                                    </Button>
-                                    Language
-                                </Space>
-                            </Grid.Item>
-                        </Grid>
+                        <Card title={`Room: ${roomId}`}>
+                            <Grid columns={2}>
+                                <Grid.Item span={2}>
+                                    <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>
+                                        <Button onClick={() => {
+                                            setIsAdjustingSetting(false);
+                                            webappDispatch(setRoomId(undefined));
+                                        }} style={{border: "none"}}>
+                                            <SwitchRoomIcon01 width={50} height={50} color={"#91003c"}/>
+                                        </Button>
+                                        Switch Room
+                                    </Space>
+                                </Grid.Item>
+                                <Grid.Item>
+                                    <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>
+                                        <Button onClick={() => setIsAdjustingFontSize(true)} style={{border: "none"}}>
+                                            <FontSizeIcon01 width={50} height={50} color={"#91003c"}/>
+                                        </Button>
+                                        <span>FontSize</span>
+                                    </Space>
+                                </Grid.Item>
+                                <Grid.Item>
+                                    <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>
+                                        <Button onClick={() => setIsAdjustingTheme(true)} style={{border: "none"}}>
+                                            <ThemeIcon01 width={50} height={50} color={"#91003c"}/>
+                                        </Button>
+                                        Theme
+                                    </Space>
+                                </Grid.Item>
+                                <Grid.Item>
+                                    <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>
+                                        <Button onClick={() => setIsAdjustingDisplayLayout(true)} style={{border: "none"}}>
+                                            <LayoutIcon01 width={50} height={50} color={"#91003c"}/>
+                                        </Button>
+                                        Layout
+                                    </Space>
+                                </Grid.Item>
+                                <Grid.Item>
+                                    <Space direction={"vertical"} style={{textAlign: "center", width: "100%"}}>
+                                        <Button onClick={() => setIsAdjustingLanguage(true)} style={{border: "none"}}>
+                                            <LanguageIcon01 width={50} height={50} color={"#91003c"}/>
+                                        </Button>
+                                        Language
+                                    </Space>
+                                </Grid.Item>
+                            </Grid>
+                        </Card>
                     </div>
                 }
                 onClose={() => setIsAdjustingSetting(false)}/>

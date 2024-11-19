@@ -10,7 +10,7 @@ const sessionSlice = createSlice({
     name: "session",
     initialState,
     reducers: {
-        setRoomId(state, action: PayloadAction<string>) {
+        setRoomId(state, action: PayloadAction<string | undefined>) {
             state.roomId = action.payload;
         },
     }

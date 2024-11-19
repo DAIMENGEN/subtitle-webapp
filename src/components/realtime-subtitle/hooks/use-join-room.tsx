@@ -34,7 +34,7 @@ export const useJoinRoom = () => {
                         onConfirm: () => join(),
                     }).then();
                 } else {
-                    const request = new CreateRequest().setMeetingRoom(roomId).setPassword("password");
+                    const request = new CreateRequest().setMeetingRoom(roomId).setPassword("");
                     client.createChat(request, {}).then(_ => {
                         webappDispatch(setRoomId(roomId));
                     });
