@@ -12,7 +12,7 @@ import {
     setDisplayLanguage,
     setDisplayLayout,
     setFontColor,
-    setFontSize,
+    setFontSize, setSpeakerColor,
     setTimeColor
 } from "@A/core/store/features/static-slice";
 import {DisplayBlock} from "@A/components/display-block/display-block";
@@ -115,9 +115,7 @@ export const SubtitleSetting = () => {
                    onMaskClick={() => setIsAdjustingLanguage(false)}>
                 <DisplayBlock title={"Please select the language you need to translate."}>
                     <CheckList multiple={true} defaultValue={displayLanguage}
-                               onChange={(value) => {
-                                   webappDispatch(setDisplayLanguage(value as Array<string>));
-                               }}>
+                               onChange={(value) => webappDispatch(setDisplayLanguage(value as Array<string>))}>
                         <CheckList.Item value={Language.CHINESE}>Chinese</CheckList.Item>
                         <CheckList.Item value={Language.ENGLISH}>English</CheckList.Item>
                         <CheckList.Item value={Language.JAPANESE}>Japanese</CheckList.Item>
@@ -129,9 +127,7 @@ export const SubtitleSetting = () => {
                    onMaskClick={() => setIsAdjustingDisplayLayout(false)}>
                 <DisplayBlock title={"Please select the layout info you want to display."}>
                     <CheckList multiple={true} defaultValue={displayLayout}
-                               onChange={(value) => {
-                                   webappDispatch(setDisplayLayout(value as Array<string>));
-                               }}>
+                               onChange={(value) => webappDispatch(setDisplayLayout(value as Array<string>))}>
                         <CheckList.Item value={"time"}>Time</CheckList.Item>
                         <CheckList.Item value={"speaker"}>Speaker</CheckList.Item>
                         <CheckList.Item value={"subtitle"}>Subtitle</CheckList.Item>
@@ -146,18 +142,21 @@ export const SubtitleSetting = () => {
                                  placement={"rightTop"}
                                  style={{marginLeft: "10px"}}
                                  presets={[ColorPaletteUtil.summerColors()]}
-                                 onChange={(value) => {
-                                     webappDispatch(setTimeColor(value.toHexString()))
-                                 }}/>
+                                 onChange={(value) => webappDispatch(setTimeColor(value.toHexString()))}/>
                 </DisplayBlock>
                 <DisplayBlock title={"Adjust Font Color"}>
                     <ColorPicker defaultValue={fontColor}
                                  placement={"rightTop"}
                                  style={{marginLeft: "10px"}}
                                  presets={[ColorPaletteUtil.summerColors()]}
-                                 onChange={(value) => {
-                                     webappDispatch(setFontColor(value.toHexString()))
-                                 }}/>
+                                 onChange={(value) => webappDispatch(setFontColor(value.toHexString()))}/>
+                </DisplayBlock>
+                <DisplayBlock title={"Adjust Speaker Color"}>
+                    <ColorPicker defaultValue={fontColor}
+                                 placement={"rightTop"}
+                                 style={{marginLeft: "10px"}}
+                                 presets={[ColorPaletteUtil.summerColors()]}
+                                 onChange={(value) => webappDispatch(setSpeakerColor(value.toHexString()))}/>
                 </DisplayBlock>
                 <DisplayBlock title={"Adjust Background Color"}>
                     <ColorPicker defaultValue={backgroundColor}
